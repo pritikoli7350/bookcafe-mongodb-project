@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Placed - Café Paradise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>✅ Order Placed Successfully!</h1>
+
+        {% if message %}
+            <p style="text-align:center; margin-top:20px;">{{ message }}</p>
+        {% else %}
+            <p style="text-align:center; margin-top:20px;">Your order has been saved in MongoDB.</p>
+        {% endif %}
+
+        <div class="go-back" style="text-align:center; margin-top:30px;">
+            <a class="button" href="{{ url_for('menu') }}">⬅ Back to Menu</a>
+        </div>
+
+        <div class="go-to-order" style="text-align:center; margin-top:10px;">
+            <a class="button" href="{{ url_for('admin_panel') }}">View All Orders (Admin)</a>
+        </div>
+    </div>
+</body>
+</html>

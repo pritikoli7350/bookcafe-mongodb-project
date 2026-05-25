@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Café Paradise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>📊 Admin Dashboard</h1>
+
+        {% if orders %}
+        <div class="admin-table-container">
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Items</th>
+                    <th>Total (₹)</th>
+                    <th>Actions</th>
+                </tr>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order._id }}</td>
+                    <td>
+                        <ul>
+                            {% set grouped = {} %}
+                            {% for item in order.order %}
+                                {% if item.name in grouped %}
+                                    {% set _ = grouped.update({item.name: {"count": grouped[item.name]["count"] + 1, "price": grouped[item.name]["price"] + item.price}}) %}

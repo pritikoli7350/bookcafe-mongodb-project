@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Café Paradise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>📊 Admin Dashboard</h1>
+
+        {% if orders %}
+        <div class="orders-cards">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Order ID: {{ order._id }}</h3>
+                </div>
+
+                <ul>
+                    {% set grouped = {} %}
+                    {% for item in order.order %}
+                        {% if item.name in grouped %}
+                            {% set _ = grouped.update({item.name: {"count": grouped[item.name]["count"] + 1, "price": grouped[item.name]["price"] + item.price}}) %}
+                        {% else %}
+                            {% set _ = grouped.update({item.name: {"count": 1, "price": item.price}}) %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for name, details in grouped.items() %}
+                        <li>{{ name }} × {{ details.count }} - ₹{{ '%.0f' | format(details.price) }}</li>
+                    {% endfor %}
+                </ul>
+
+                <p class="total">Total: ₹{{ order.total }}</p>
+
+                <a href="{{ url_for('delete_order', order_id=order._id|string) }}" 
+                   onclick="return confirm('Are you sure you want to delete this order?');"
+                   class="delete-btn">🗑️ Delete Order</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p style="color: #ffe0b2; text-align:center; margin-top:20px;">No orders placed yet.</p>
+        {% endif %}
+
+        <div class="go-back">
+            <a href="{{ url_for('menu') }}">⬅ Back to Menu</a>
+        </div>
+    </div>
+</body>
+</html>

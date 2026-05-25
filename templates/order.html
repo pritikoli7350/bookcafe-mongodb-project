@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Order - Café Paradise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>📝 Your Order</h1>
+
+        {% if order %}
+            <ul style="list-style-type:none; padding:0;">
+               {% set grouped = {} %}
+{% for item in order %}
+    {% if item.name in grouped %}
+        {% set _ = grouped.update({item.name: {"count": grouped[item.name]["count"] + 1, "price": grouped[item.name]["price"] + item.price}}) %}
+    {% else %}
+        {% set _ = grouped.update({item.name: {"count": 1, "price": item.price}}) %}
+    {% endif %}
+{% endfor %}
+
+{% for name, details in grouped.items() %}
+    <li>
+        {{ name }} × {{ details.count }} - ₹{{ details.price }}
+    </li>
+{% endfor %}
+
+            </ul>
+
+            <h3 style="text-align:right; margin-top:20px;">Total: ₹{{ total }}</h3>
+
+            <form action="{{ url_for('place_order') }}" method="post" style="text-align:center; margin-top:20px;">
+    <button type="submit" class="place-order-btn">☕ Place Order ✅</button>
+</form>
+
+        {% else %}
+            <p style="text-align:center; margin-top:20px;">No items in your order yet.</p>
+        {% endif %}
+
+        <div class="go-back">
+            <a class="button" href="{{ url_for('menu') }}">⬅ Back to Menu</a>
+        </div>
+    </div>
+</body>
+</html>

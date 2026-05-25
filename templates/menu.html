@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Café Paradise Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>☕ Cafe Purrfect Sips</h1>
+
+        <form action="{{ url_for('add_to_order') }}" method="post">
+            <div class="menu">
+                {% for item in menu %}
+                <div class="item">
+                    <h3>{{ item.name }}</h3>
+                    <p>₹{{ item.price }}</p>
+                    <label>
+                        Qty:
+                        <input type="number" name="quantity" value="0" min="0">
+                        <input type="hidden" name="item_name" value="{{ item.name }}">
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+             <div class="add-selected">
+            <button type="submit">➕ Add Selected to Order</button>
+        </div>
+        </form>
+
+        <div class="go-to-order">
+            <a href="{{ url_for('show_order') }}">View Your Order 📝</a>
+        </div>
+    </div>
+</body>
+</html>

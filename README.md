@@ -25,16 +25,16 @@ This project allows users to place coffee orders while providing an admin dashbo
 ## 🖼️ Screenshots
 
 ### 🏠 Homepage / Menu
-![Homepage](screenshots/homepage%20(2).png)
+![Homepage](Screenshots/homepage%20(2).png)
 
 ### 📋 Admin Dashboard
-![Admin Dashboard](screenshots/admin%20dashboard.png)
+![Admin Dashboard](Screenshots/admin%20dashboard.png)
 
 ### ✏️ Edit Order Page
-![Edit Order](screenshots/order%20edit.png)
+![Edit Order](Screenshots/order%20edit.png)
 
 ### ✅ Order Success Page
-**![Order Success](screenshots/order%20success%20page.png)
+**![Order Success](Screenshots/order%20success%20page.png)
 **---
 
 ## 🛠️ Tech Stack
